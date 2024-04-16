@@ -6,6 +6,27 @@ const userSchema = new mongoose.Schema({
     password: { type: String, required: true },
 });
 
+//JWS 
+
+userSchema.methods.generateAuthToken = function () {
+    const token = jwt.sign({ _id: this._id }, 'your_secret_key');
+    return token;
+};
+
+userSchema.statics.findByCredentials = async (email, password) => {
+    const user = await User.findOne({ email });
+    if (!user) {
+        throw new Error('Invalid login credentials');
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+    if (!isPasswordMatch) {
+        throw new Error('Invalid login credentials');
+    }
+
+    return user;
+};
+
 const recipeSchema = new mongoose.Schema({
     title: { type: String, required: true },
     ingredients: { type: [String], required: true },
