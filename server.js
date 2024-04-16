@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://omprakashkjat19:Mp6RjeJoLEx9SvC3@test.fkf1bxq.mongodb.net/Recipe')
     .then(() => console.log('Connected!'));
@@ -9,6 +10,7 @@ const { User, Recipe, Rating, Comment } = require('./Model/schema');
 
 app.use(bodyParser.json());
 app.use(express.json());
+app.use(cors())
 
 //auth
 
