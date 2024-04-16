@@ -1,0 +1,17 @@
+{
+    "version":2,
+    "name": "OPEN_STYLE_Server",
+    "builds": [
+      {
+          "src": "/server.js",
+          "use": "@vercel/node"
+      }
+  ],   
+  "routes": [
+    {
+        "src": "/server.js",
+        "dest": "/server.js"
+    }
+]
+
+}
